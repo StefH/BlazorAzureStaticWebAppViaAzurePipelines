@@ -21,4 +21,4 @@ steps:
 - task: CmdLine@2
   target: staticappsclient  # this task will run in the container
   inputs:
-    script: 'cd /bin/staticsites/ && ./StaticSitesClient abc'
+    script: 'cd /bin/staticsites/ && ./StaticSitesClient upload --verbose True --apiToken 3872425c666b13b1290693a0514cfc274e3ee179aaa0cf174feb75fad815253f-807961cb-ff20-4c7e-abf1-24f0e0461b5300316939'
