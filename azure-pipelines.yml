@@ -21,4 +21,4 @@ steps:
 - task: CmdLine@2
   target: staticappsclient  # this task will run in the container
   inputs:
-    script: 'cd /bin/staticsites/ && ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --api Api --app Client --outputLocation wwwroot'
+    script: 'cd /bin/staticsites/ && ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Pipeline.Workspace) --api Api --app Client --outputLocation wwwroot'
