@@ -27,24 +27,20 @@ steps:
       wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 
 - task: CmdLine@2
-  condition: false
   displayName: 'Install dotnet-sdk-3.1'
   target: staticappsclient
   inputs:
     script: |
-      apt-get update
-      apt-get install -y apt-transport-https
-      apt-get update
-      apt-get install -y dotnet-sdk-3.1
+      wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg
+      sudo mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
+      wget https://packages.microsoft.com/config/debian/9/prod.list
+      sudo mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
+      sudo chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg
+      sudo chown root:root /etc/apt/sources.list.d/microsoft-prod.list
 
 - task: CmdLine@2
   target: staticappsclient
   inputs:
     script: |
-      wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-      apt-get update
-      apt-get install -y apt-transport-https
-      apt-get update
-      apt-get install -y dotnet-sdk-3.1
       cd /bin/staticsites
       ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot'
