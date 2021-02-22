@@ -4,6 +4,19 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+resources:
+  containers:
+  - container: staticappsclient
+    image: mcr.microsoft.com/appsvc/staticappsclient:stable
+
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
+
+- task: SampleTask@1
+  target: host
+  script: printenv
+
+- task: AnotherTask@1
+  target: staticappsclient  # this task will run in the container
+  script: printenv  
