@@ -22,13 +22,19 @@ steps:
   displayName: 'wget packages-microsoft-prod'
   target: staticappsclient
   inputs:
-    script: 'wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb'
+    script: |
+      wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+      dpkg -i packages-microsoft-prod.deb
 
 - task: CmdLine@2
   displayName: 'Install dotnet-sdk-3.1'
   target: staticappsclient
   inputs:
-    script: 'apt-get update && apt-get install -y apt-transport-https && apt-get update && apt-get install -y dotnet-sdk-3.1'
+    script: |
+      apt-get update
+      apt-get install -y apt-transport-https
+      apt-get update
+      apt-get install -y dotnet-sdk-3.1
 
 - task: CmdLine@2
   target: staticappsclient
