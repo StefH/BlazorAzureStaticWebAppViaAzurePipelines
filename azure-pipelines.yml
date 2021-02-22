@@ -21,4 +21,4 @@ steps:
 - task: CmdLine@2
   target: staticappsclient  # this task will run in the container
   inputs:
-    script: 'ls -al'
+    script: 'cd /bin/staticsites/ && ./StaticSitesClient abc'
