@@ -19,14 +19,15 @@ steps:
     script: 'ls -al'
 
 - task: CmdLine@2
+  condition: false
   displayName: 'wget packages-microsoft-prod'
   target: staticappsclient
   inputs:
     script: |
       wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-      dpkg -i packages-microsoft-prod.deb
 
 - task: CmdLine@2
+  condition: false
   displayName: 'Install dotnet-sdk-3.1'
   target: staticappsclient
   inputs:
@@ -39,4 +40,11 @@ steps:
 - task: CmdLine@2
   target: staticappsclient
   inputs:
-    script: 'cd /bin/staticsites/ && ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot'
+    script: |
+      wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+      apt-get update
+      apt-get install -y apt-transport-https
+      apt-get update
+      apt-get install -y dotnet-sdk-3.1
+      cd /bin/staticsites
+      ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot'
