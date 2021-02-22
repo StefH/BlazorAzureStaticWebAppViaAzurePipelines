@@ -20,6 +20,7 @@ steps:
     script: 'ls -al'
 
 - task: CmdLine@2
+  condition: false
   displayName: 'Install dotnet-sdk-3.1a'
   target: staticappsclient
   inputs:
