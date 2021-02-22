@@ -13,8 +13,12 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: ls -al
+- task: CmdLine@2
   target: host
+  inputs:
+    script: 'ls -al'
 
-- script: ls -al
-  target: staticappsclient  # this task will run in the container 
+- task: CmdLine@2
+  target: staticappsclient  # this task will run in the container
+  inputs:
+    script: 'ls -al'
