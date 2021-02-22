@@ -13,8 +13,8 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: printenv
+- script: ls -al
   target: host
 
-- script: printenv
+- script: ls -al
   target: staticappsclient  # this task will run in the container 
