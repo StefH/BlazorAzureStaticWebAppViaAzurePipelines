@@ -20,7 +20,6 @@ steps:
     script: 'ls -al'
 
 - task: CmdLine@2
-  condition: false
   displayName: 'Install dotnet-sdk-3.1'
   target: staticappsclient
   inputs:
@@ -40,5 +39,5 @@ steps:
   target: staticappsclient
   inputs:
     script: |
-      cd /bin/staticsites
+      cd /bin/staticsites/
       ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot'
