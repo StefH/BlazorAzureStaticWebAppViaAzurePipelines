@@ -53,7 +53,7 @@ steps:
     version: 3.1.10
 - task: Bash@3
   condition: true
-  displayName: 'Install dotnet-sdk-3.1.10 sudo?'
+  displayName: 'Install dotnet-sdk-3.1.10 sudo???'
   target: staticappsclient
   inputs:
     targetType: inline
