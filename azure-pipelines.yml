@@ -37,12 +37,11 @@ steps:
       apt-get install -y dotnet-sdk-3.1
 
 - task: CmdLine@2
-  condition: false
-  displayName: 'Install dotnet-sdk-3.1b'
+  condition: true
+  displayName: 'Install dotnet-sdk-3.1.10'
   target: staticappsclient
   inputs:
     script: |
-      apt-get install sudo
       wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg
       mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
       wget https://packages.microsoft.com/config/debian/9/prod.list
@@ -51,7 +50,7 @@ steps:
       chown root:root /etc/apt/sources.list.d/microsoft-prod.list
       apt-get install -y apt-transport-https
       apt-get update
-      apt-get install -y dotnet-sdk-3.1
+      apt-get install -y dotnet-sdk-3.1.10
 
 - task: CmdLine@2
   target: staticappsclient
