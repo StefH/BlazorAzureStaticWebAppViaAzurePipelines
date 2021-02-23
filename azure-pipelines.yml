@@ -44,7 +44,7 @@ steps:
     packageType: sdk
     version: 3.1.x
 - task: CmdLine@2
-  condition: true
+  condition: false
   displayName: 'Install dotnet-sdk-3.1.10'
   target: staticappsclient
   inputs:
