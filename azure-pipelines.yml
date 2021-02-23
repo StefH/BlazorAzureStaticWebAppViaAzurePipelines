@@ -56,6 +56,7 @@ steps:
   displayName: 'Install dotnet-sdk-3.1.10'
   target: staticappsclient
   inputs:
+    targetType: inline
     script: |
       wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg
       mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
@@ -70,6 +71,7 @@ steps:
 - task: Bash@3
   target: staticappsclient
   inputs:
+    targetType: inline
     script: |
       cd /bin/staticsites/
       ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot
