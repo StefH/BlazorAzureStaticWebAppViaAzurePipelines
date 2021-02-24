@@ -51,6 +51,13 @@ steps:
   inputs:
     packageType: runtime
     version: 3.1.10
+
+- task: Bash@3
+  condition: true
+  displayName: 'dotnet'
+  target: staticappsclient
+  inputs:
+    script: dotnet --version
 - task: Bash@3
   condition: true
   displayName: 'Install dotnet-sdk-3.1.10 sudo???'
