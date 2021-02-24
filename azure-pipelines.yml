@@ -37,7 +37,7 @@ steps:
       apt-get install -y dotnet-sdk-3.1
 
 - task: UseDotNet@2
-  condition: false
+  condition: true
   displayName: 'Use .NET Core sdk'
   target: staticappsclient
   inputs:
@@ -45,7 +45,7 @@ steps:
     version: 3.1.x
 
 - task: UseDotNet@2
-  condition: true
+  condition: false
   displayName: 'Use .NET Core runtime'
   target: staticappsclient
   inputs:
