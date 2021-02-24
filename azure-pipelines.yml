@@ -37,7 +37,7 @@ steps:
       apt-get install -y dotnet-sdk-3.1
 
 - task: UseDotNet@2
-  condition: true
+  condition: false
   displayName: 'Use .NET Core sdk'
   target: staticappsclient
   inputs:
@@ -62,7 +62,7 @@ steps:
       dotnet --version
 
 - task: Bash@3
-  condition: true
+  condition: false
   displayName: 'Install dotnet-sdk-3.1.10 sudo???'
   target: staticappsclient
   inputs:
@@ -83,5 +83,6 @@ steps:
   inputs:
     targetType: inline
     script: |
+      dotnet --version
       cd /bin/staticsites/
       ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot
