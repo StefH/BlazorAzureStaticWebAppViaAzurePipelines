@@ -8,75 +8,36 @@ resources:
   containers:
   - container: staticappsclient
     image: mcr.microsoft.com/appsvc/staticappsclient:stable
-    options: --userns host
+    options: "--name ci-container -v /usr/bin/docker:/tmp/docker:ro"
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: |
+    /tmp/docker exec -t -u 0 ci-container \
+    sh -c "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" -y install sudo"
+  displayName: 'install sudo'
 
-- task: CmdLine@2
-  target: host
-  inputs:
-    script: 'ls -al'
-
-- task: CmdLine@2
-  condition: false
-  displayName: 'Install dotnet-sdk-3.1a'
-  target: staticappsclient
-  inputs:
-    script: |
-      apt-get install sudo
-      wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg
-      mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
-      wget https://packages.microsoft.com/config/debian/9/prod.list
-      mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
-      chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg
-      chown root:root /etc/apt/sources.list.d/microsoft-prod.list
-      apt-get install -y apt-transport-https
-      apt-get update
-      apt-get install -y dotnet-sdk-3.1
-
-- task: UseDotNet@2
-  condition: true
-  displayName: 'Use .NET Core sdk'
-  target: staticappsclient
-  inputs:
-    packageType: sdk
-    version: 3.1.x
-
-- task: UseDotNet@2
-  condition: false
-  displayName: 'Use .NET Core runtime'
-  target: staticappsclient
-  inputs:
-    packageType: runtime
-    version: 3.1.10
+- script: |
+    wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg
+    
+    sudo mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
+    wget https://packages.microsoft.com/config/debian/9/prod.list
+    sudo mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
+    sudo chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg
+    sudo chown root:root /etc/apt/sources.list.d/microsoft-prod.list
+    
+    sudo apt-get install -y apt-transport-https && \
+    sudo apt-get update && \
+    sudo apt-get install -y dotnet-sdk-3.1
+  displayName: 'install dotnet-sdk-3.1'
 
 - task: Bash@3
   condition: true
-  displayName: 'dotnet'
+  displayName: 'dotnet --version'
   target: staticappsclient
   inputs:
     targetType: inline
     script: |
       dotnet --version
-
-- task: Bash@3
-  condition: false
-  displayName: 'Install dotnet-sdk-3.1.10 sudo???'
-  target: staticappsclient
-  inputs:
-    targetType: inline
-    script: |
-      wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg
-      mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
-      wget https://packages.microsoft.com/config/debian/9/prod.list
-      sudo mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
-      sudo chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg
-      sudo chown root:root /etc/apt/sources.list.d/microsoft-prod.list
-      sudo apt-get install -y apt-transport-https
-      sudo apt-get update
-      sudo apt-get install -y dotnet-sdk-3.1.10
 
 - task: Bash@3
   target: staticappsclient
