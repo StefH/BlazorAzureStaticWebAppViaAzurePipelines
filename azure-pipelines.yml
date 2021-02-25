@@ -48,19 +48,9 @@ steps:
   displayName: 'install dotnet runtime 3.1'
 
 - task: Bash@3
-  condition: true
-  displayName: 'dotnet --version'
   target: staticappsclient
   inputs:
     targetType: inline
     script: |
-      dotnet --version
-
-- task: Bash@3
-  target: staticappsclient
-  inputs:
-    targetType: inline
-    script: |
-      dotnet --version
       cd /bin/staticsites/
       ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot
