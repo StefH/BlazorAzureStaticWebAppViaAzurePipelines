@@ -7,7 +7,7 @@ pool:
 resources:
   containers:
   - container: staticappsclient
-    image: mcr.microsoft.com/appsvc/staticappsclient:stable
+    image: mcr.microsoft.com/appsvc/staticappsclient
     options: "--name ci-container -v /usr/bin/docker:/tmp/docker:ro"
 
 container: staticappsclient
