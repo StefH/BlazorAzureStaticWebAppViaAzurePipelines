@@ -17,6 +17,7 @@ steps:
     /tmp/docker exec -t -u 0 ci-container \
     sh -c "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" -y install sudo"
   displayName: 'install sudo'
+  condition: false
 
 - script: |
     wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg
@@ -46,6 +47,7 @@ steps:
     sudo apt-get update && \
     sudo apt-get install -y dotnet-runtime-3.1
   displayName: 'install dotnet runtime 3.1'
+  condition: false
 
 - task: Bash@3
   target: staticappsclient
@@ -53,4 +55,4 @@ steps:
     targetType: inline
     script: |
       cd /bin/staticsites/
-      sudo ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot
+      ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot
