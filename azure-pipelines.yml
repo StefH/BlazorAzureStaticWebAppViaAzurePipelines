@@ -53,4 +53,4 @@ steps:
     targetType: inline
     script: |
       cd /bin/staticsites/
-      ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot
+      sudo ./StaticSitesClient upload --verbose True --apiToken $(API_TOKEN) --workdir $(Build.SourcesDirectory) --api Api --app Client --outputLocation wwwroot
