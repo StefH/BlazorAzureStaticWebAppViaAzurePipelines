@@ -10,6 +10,8 @@ resources:
     image: mcr.microsoft.com/appsvc/staticappsclient:stable
     options: "--name ci-container -v /usr/bin/docker:/tmp/docker:ro"
 
+container: staticappsclient
+  
 steps:
 - script: |
     /tmp/docker exec -t -u 0 ci-container \
