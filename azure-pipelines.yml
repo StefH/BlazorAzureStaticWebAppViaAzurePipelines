@@ -31,7 +31,7 @@ steps:
     sudo apt-get install -y apt-transport-https && \
     sudo apt-get update && \
     sudo apt-get install -y dotnet-sdk-3.1
-  displayName: 'install dotnet sdk 3.1'
+  displayName: 'install dotnet sdk 3.1_'
   condition: false
 
 - script: |
