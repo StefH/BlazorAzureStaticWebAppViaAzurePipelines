@@ -9,6 +9,6 @@ steps:
     inputs:
       app_location: Client 
       api_location: Api
-      output_location: build
+      output_location: wwwroot
     env:
       azure_static_web_apps_api_token: $(API_TOKEN)
