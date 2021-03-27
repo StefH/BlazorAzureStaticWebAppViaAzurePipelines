@@ -7,8 +7,9 @@ pool:
 steps:
   - task: AzureStaticWebApp@0
     inputs:
-      app_location: Client 
-      api_location: Api
-      output_location: wwwroot
+      app_location: "Client" # App source code path
+      api_location: "Api" # Api source code path
+      output_location: "wwwroot" # Built app content directory
+
     env:
       azure_static_web_apps_api_token: $(API_TOKEN)
